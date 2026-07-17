@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { useFormStatus } from 'react-dom';
-import { type NotesFormState } from '@/lib/actions';
+import { type NotesFormState } from "@/server/actions";
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';

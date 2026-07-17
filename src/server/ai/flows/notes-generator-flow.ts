@@ -8,7 +8,7 @@
  * - GenerateNotesOutput - The return type for the generateNotes function.
  */
 
-import { ai } from '@/ai/genkit';
+import { ai } from "@/server/ai/genkit";
 import { z } from 'genkit';
 import { NotesOutputSchema, type NotesOutput } from '@/lib/types';
 import { processDocument } from './document-processor-flow';

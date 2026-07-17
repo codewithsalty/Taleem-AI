@@ -1,24 +1,24 @@
 'use server';
 
-import { generateQuiz, type GenerateQuizInput, type GenerateQuizOutput } from '@/ai/flows/ai-quiz-generator';
-import { generateFlashcards, type GenerateFlashcardsInput, type GenerateFlashcardsOutput } from '@/ai/flows/smart-flashcard-generation';
-import { generateTutorResponse, type AITutorInput } from '@/ai/flows/ai-tutor-flow';
-import { generateRagResponse, type RagInput } from '@/ai/flows/rag-flow';
-import { generateStudySuite } from '@/ai/flows/smart-study-suite-flow';
+import { generateQuiz, type GenerateQuizInput, type GenerateQuizOutput } from "@/server/ai/flows/ai-quiz-generator";
+import { generateFlashcards, type GenerateFlashcardsInput, type GenerateFlashcardsOutput } from "@/server/ai/flows/smart-flashcard-generation";
+import { generateTutorResponse, type AITutorInput } from "@/server/ai/flows/ai-tutor-flow";
+import { generateRagResponse, type RagInput } from "@/server/ai/flows/rag-flow";
+import { generateStudySuite } from "@/server/ai/flows/smart-study-suite-flow";
 import { type StudySuiteInput, type StudySuiteOutput } from '@/lib/types';
 export type { StudySuiteOutput };
-import { generateMindMap, type GenerateMindMapInput, type GenerateMindMapOutput } from '@/ai/flows/mind-map-generator';
-import { generateNotes, type GenerateNotesInput } from '@/ai/flows/notes-generator-flow';
-import { generatePresentation, type GeneratePresentationInput, type GeneratePresentationOutput } from '@/ai/flows/presentation-generator-flow';
-import { identifyImportantQuestions, type IdentifyImportantQuestionsInput, type IdentifyImportantQuestionsOutput } from '@/ai/flows/identify-important-questions-flow';
-import { generateYoutubeSummary, type GenerateYoutubeSummaryInput, type GenerateYoutubeSummaryOutput } from '@/ai/flows/youtube-summarizer-flow';
-import { generateEmbedding } from '@/ai/flows/embedding-flow';
-import { processDocument } from '@/ai/flows/document-processor-flow';
+import { generateMindMap, type GenerateMindMapInput, type GenerateMindMapOutput } from "@/server/ai/flows/mind-map-generator";
+import { generateNotes, type GenerateNotesInput } from "@/server/ai/flows/notes-generator-flow";
+import { generatePresentation, type GeneratePresentationInput, type GeneratePresentationOutput } from "@/server/ai/flows/presentation-generator-flow";
+import { identifyImportantQuestions, type IdentifyImportantQuestionsInput, type IdentifyImportantQuestionsOutput } from "@/server/ai/flows/identify-important-questions-flow";
+import { generateYoutubeSummary, type GenerateYoutubeSummaryInput, type GenerateYoutubeSummaryOutput } from "@/server/ai/flows/youtube-summarizer-flow";
+import { generateEmbedding } from "@/server/ai/flows/embedding-flow";
+import { processDocument } from "@/server/ai/flows/document-processor-flow";
 import { z } from 'zod';
-import { type Message, type TutorFormState, type TutorContextFormState, type RagOutput, type RagFormState, type VoiceTutorOutput, type RagVoiceFormState, type StudySuiteFormState, type NotesFormState, type NotesOutput, type PresentationFormState, type ImportantQuestionsFormState, type YoutubeSummarizerFormState, type QuizResult } from './types';
+import { type Message, type TutorFormState, type TutorContextFormState, type RagOutput, type RagFormState, type VoiceTutorOutput, type RagVoiceFormState, type StudySuiteFormState, type NotesFormState, type NotesOutput, type PresentationFormState, type ImportantQuestionsFormState, type YoutubeSummarizerFormState, type QuizResult } from '@/lib/types';
 export type { Message, TutorFormState, TutorContextFormState, RagOutput, RagFormState, VoiceTutorOutput, RagVoiceFormState, StudySuiteFormState, NotesFormState, NotesOutput, PresentationFormState, ImportantQuestionsFormState, YoutubeSummarizerFormState, QuizResult };
 import { redirect } from 'next/navigation';
-import { generateVoiceTutorResponse } from '@/ai/flows/voice-tutor-flow';
+import { generateVoiceTutorResponse } from "@/server/ai/flows/voice-tutor-flow";
 
 
 const quizSchema = z.object({
@@ -462,7 +462,7 @@ export async function generateNotesAction(
 }
 
 
-import { dailyChallengeDefs } from './gamification';
+import { dailyChallengeDefs } from '@/lib/gamification';
 
 export async function ensureDailyChallenges(userId: string) {
     try {

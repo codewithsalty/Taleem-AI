@@ -11,7 +11,7 @@ import { Upload, FileText } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertCircle } from 'lucide-react';
-import type { StudySuiteFormState } from '@/lib/actions';
+import type { StudySuiteFormState } from "@/server/actions";
 
 export default function UploadForm({ state }: { state: StudySuiteFormState }) {
     const [fileName, setFileName] = useState('');

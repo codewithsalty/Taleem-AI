@@ -9,11 +9,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import { Upload, FileText, Sparkles, Loader2, List, Trash2, Image as ImageIcon, BrainCircuit, Copy, AlertCircle, FileQuestion, BadgeHelp, Check, ThumbsUp } from 'lucide-react';
 import EmptyState from '@/components/shared/empty-state';
-import { analyzePastPaper } from '@/ai/flows/past-paper-analyzer-flow';
+import { analyzePastPaper } from "@/server/ai/flows/past-paper-analyzer-flow";
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { type AnalyzePastPaperOutput } from '@/ai/flows/past-paper-analyzer-flow';
+import { type AnalyzePastPaperOutput } from "@/server/ai/flows/past-paper-analyzer-flow";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { generateQuizAction, generateFlashcardsAction, identifyImportantQuestionsAction, type QuizFormState, type FlashcardFormState, type ImportantQuestionsFormState } from '@/lib/actions';
+import { generateQuizAction, generateFlashcardsAction, identifyImportantQuestionsAction, type QuizFormState, type FlashcardFormState, type ImportantQuestionsFormState } from "@/server/actions";
 import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import QuizDisplay from '@/components/features/quiz-generator/quiz-display';
 import FlashcardDisplay from '@/components/features/flashcards/flashcard-display';

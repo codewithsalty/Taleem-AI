@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Timer, Check, X, Loader2, Sparkles, Repeat, Trophy } from 'lucide-react';
 import { useFormStatus } from 'react-dom';
-import { generateQuizAction, type QuizFormState } from '@/lib/actions';
+import { generateQuizAction, type QuizFormState } from "@/server/actions";
 import type { QuizQuestion } from '@/lib/types';
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';

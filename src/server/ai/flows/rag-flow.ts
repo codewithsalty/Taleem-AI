@@ -3,7 +3,7 @@
 import { z } from 'zod';
 import { RagOutput, RagOutputSchema, type CurriculumDocument } from '@/lib/types';
 import { generateEmbedding } from './embedding-flow';
-import { initializeFirebaseServer } from '@/firebase/server-init';
+import { initializeFirebaseServer } from "@/server/firebase/server-init";
 import { callGroqChat } from '../groq';
 
 const RagInputSchema = z.object({

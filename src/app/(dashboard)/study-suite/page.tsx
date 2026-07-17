@@ -5,7 +5,7 @@ import { useActionState, useEffect, useState } from 'react';
 import UploadForm from '@/components/features/study-suite/upload-form';
 import GenerationOptions from '@/components/features/study-suite/generation-options';
 import StudySuiteOutputComponent from '@/components/features/study-suite/study-suite-output';
-import { generateStudySuiteAction, type StudySuiteFormState, type StudySuiteOutput } from '@/lib/actions';
+import { generateStudySuiteAction, type StudySuiteFormState, type StudySuiteOutput } from "@/server/actions";
 import { useFormStatus } from 'react-dom';
 import { Button } from '@/components/ui/button';
 import { Sparkles, Loader2 } from 'lucide-react';

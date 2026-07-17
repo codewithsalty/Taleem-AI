@@ -8,7 +8,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 import { type Message } from '@/lib/types';
-import { generateTutorResponseAction, generateVoiceTutorResponseAction } from '@/lib/actions';
+import { generateTutorResponseAction, generateVoiceTutorResponseAction } from "@/server/actions";
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/hooks/use-toast';

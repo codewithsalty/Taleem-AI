@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { FileText, Loader2, Upload, AlertCircle, Sparkles } from 'lucide-react';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
-import { generatePresentationAction, type PresentationFormState } from '@/lib/actions';
+import { generatePresentationAction, type PresentationFormState } from "@/server/actions";
 import PresentationDisplay from '@/components/features/presentation-maker/presentation-display';
 
 function SubmitButton({ onSubmit }: { onSubmit: () => void }) {

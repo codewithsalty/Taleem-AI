@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { FileText, Loader2, Upload, AlertCircle, CheckCircle } from 'lucide-react';
 import { useFormStatus } from 'react-dom';
 import { useToast } from '@/hooks/use-toast';
-import { generateTutorContextAction, type TutorContextFormState } from '@/lib/actions';
+import { generateTutorContextAction, type TutorContextFormState } from "@/server/actions";
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { useUser } from '@/firebase';
 

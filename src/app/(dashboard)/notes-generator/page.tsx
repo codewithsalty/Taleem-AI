@@ -4,7 +4,7 @@
 import { useActionState } from 'react';
 import NotesForm from '@/components/features/notes-generator/notes-form';
 import NotesDisplay from '@/components/features/notes-generator/notes-display';
-import { generateNotesAction, type NotesFormState } from '@/lib/actions';
+import { generateNotesAction, type NotesFormState } from "@/server/actions";
 
 export default function NotesGeneratorPage() {
   const initialState: NotesFormState = { message: '', errors: {} };

@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Loader2, Youtube, Sparkles, AlertCircle } from 'lucide-react';
-import { generateYoutubeSummaryAction, type YoutubeSummarizerFormState } from '@/lib/actions';
+import { generateYoutubeSummaryAction, type YoutubeSummarizerFormState } from "@/server/actions";
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
 

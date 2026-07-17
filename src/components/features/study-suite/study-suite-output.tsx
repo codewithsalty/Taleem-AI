@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Loader2, Download, Library, Share2, ScrollText, Headphones, Map, Copy, ListChecks } from 'lucide-react';
-import type { StudySuiteOutput } from '@/lib/actions';
+import type { StudySuiteOutput } from "@/server/actions";
 import FlashcardDisplay from '../flashcards/flashcard-display';
 import QuizDisplay from '../quiz-generator/quiz-display';
 

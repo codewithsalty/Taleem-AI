@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Download, Image as ImageIcon, ZoomIn } from 'lucide-react';
 import EmptyState from '@/components/shared/empty-state';
 import { useToast } from '@/hooks/use-toast';
-import type { NotesFormState } from '@/lib/actions';
+import type { NotesFormState } from "@/server/actions";
 import { Separator } from '@/components/ui/separator';
 
 import MermaidRenderer from '../mind-map/mermaid-renderer';
