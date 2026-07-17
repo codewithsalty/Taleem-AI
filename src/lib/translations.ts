@@ -1,0 +1,116 @@
+export const translations = {
+  en: {
+    // General
+    getStarted: 'Get Started',
+    dashboard: 'Dashboard',
+    settings: 'Settings',
+    search: 'Search...',
+    news: 'News',
+
+    // Landing Page
+    heroTitle: 'Learn Smarter, Speak Freely.',
+    heroSubtitle: 'Welcome to Taleem AI — your personal, voice-powered tutor aligned with the Pakistani curriculum. Built to win.',
+    featuresTitle: 'Hackathon-Winning Features',
+    featuresSubtitle: 'Engineered for excellence. Designed for Pakistani students.',
+    voiceFirstTitle: 'Voice-First Interface',
+    voiceFirstDesc: 'Learn naturally by speaking in Urdu or English. Control the app, ask questions, and get spoken responses.',
+    ragTitle: 'RAG-Powered Curriculum',
+    ragDesc: 'Get answers grounded in official Pakistani textbooks, ensuring relevance and accuracy for your grade.',
+    gamifiedTitle: 'Gamified Learning',
+    gamifiedDesc: 'Earn points, unlock badges, and climb the leaderboard. Make learning a fun and competitive adventure.',
+    testimonial1Quote: 'Taleem AI has transformed how my son studies. The voice tutor is revolutionary!',
+    testimonial1Title: 'Parent, Grade 5 Student',
+    testimonial2Quote: "Finally, a learning tool that understands the Pakistani curriculum. It's an essential app for every student.",
+    testimonial2Title: 'Educator & Tutor',
+
+    // Sidebar & Header
+    studySuite: 'Study Suite',
+    quizGenerator: 'Quiz Generator',
+    smartFlashcards: 'Smart Flashcards',
+    aiTutor: 'AI Tutor',
+    voiceTutor: 'Voice Tutor',
+    gamesCenter: 'Games Center',
+    presentationMaker: 'Presentation Maker',
+    pastPaperCreator: 'Past Paper Creator',
+    
+    // Dashboard Page
+    currentLevel: 'Current Level',
+    currentStreak: 'Current Streak',
+    quizzesPassed: 'Quizzes Passed',
+    pointsEarned: 'Points Earned',
+    weeklyLearningOverview: 'Weekly Learning Overview',
+    weeklyLearningDescription: 'Your study minutes over the last 7 days.',
+    levelProgress: 'Level Progress',
+    levelProgressDescription: 'Your journey to mastery!',
+    loginStreak: 'Login Streak',
+    dailyChallenges: 'Daily Challenges',
+    dailyChallengesDescription: 'Complete challenges to earn bonus points.',
+    challengeHistory: 'Challenge History',
+    challengeHistoryDescription: 'Your performance over the last 7 days.',
+    subjectPerformance: 'Subject Performance',
+    subjectPerformanceDescription: 'Your current scores across different subjects.',
+    quizAccuracyTrends: 'Quiz Accuracy Trends',
+    quizAccuracyTrendsDescription: 'Your quiz performance over the last 6 months.',
+    achievementProgress: 'Achievement Progress',
+    achievementProgressDescription: 'Unlock badges by completing challenges.',
+
+  },
+  ur: {
+    // General
+    getStarted: 'شروع کریں',
+    dashboard: 'ڈیش بورڈ',
+    settings: 'ترتیبات',
+    search: 'تلاش کریں...',
+    news: 'خبریں',
+
+    // Landing Page
+    heroTitle: 'بہتر سیکھیں، بے جھجھک بولیں',
+    heroSubtitle: 'تعلیم AI میں خوش آمدید — آپ کا ذاتی، آواز سے چلنے والا ٹیوٹر جو پاکستانی نصاب کے مطابق ہے۔ جیتنے کے لیے بنایا گیا ہے۔',
+    featuresTitle: 'ہیکathon جیتنے والی خصوصیات',
+    featuresSubtitle: 'کامیابی کے لیے تیار کردہ۔ پاکستانی طلباء کے لیے ڈیزائن کیا گیا۔',
+    voiceFirstTitle: 'صوتی انٹرفیس',
+    voiceFirstDesc: 'اردو یا انگریزی میں بول کر قدرتی طور پر سیکھیں۔ ایپ کو کنٹرول کریں، سوالات پوچھیں اور صوتی جوابات حاصل کریں۔',
+    ragTitle: 'جدید نصاب',
+    ragDesc: 'سرکاری پاکستانی نصابی کتب پر مبنی جوابات حاصل کریں، جو آپ کے گریڈ کے لیے موزوں اور درست ہوں۔',
+    gamifiedTitle: 'کھیل پر مبنی تعلیم',
+    gamifiedDesc: 'پوائنٹس حاصل کریں، بیجز کو غیر مقفل کریں، اور لیڈر بورڈ پر آگے بڑھیں۔ سیکھنے کو ایک تفریحی اور مسابقتی مہم جوئی بنائیں۔',
+    testimonial1Quote: 'تعلیم AI نے میرے بیٹے کے پڑھنے کا طریقہ بدل دیا ہے۔ وائس ٹیوٹر انقلابی ہے!',
+    testimonial1Title: 'والد، پانچویں جماعت کے طالب علم',
+    testimonial2Quote: 'آخرکار، ایک سیکھنے کا آلہ جو پاکستانی نصاب کو سمجھتا ہے۔ یہ ہر طالب علم کے لیے ایک ضروری ایپ ہے۔',
+    testimonial2Title: 'ماہرِ تعلیم اور ٹیوٹر',
+
+    // Sidebar & Header
+    studySuite: 'اسٹڈی سویٹ',
+    quizGenerator: 'کوئز جنریٹر',
+    smartFlashcards: 'اسمارٹ فلیش کارڈز',
+    aiTutor: 'AI ٹیوٹر',
+    voiceTutor: 'وائس ٹیوٹر',
+    gamesCenter: 'گیمز سینٹر',
+    presentationMaker: 'پریزنٹیشن میکر',
+    pastPaperCreator: 'گزشتہ پرچوں کا خالق',
+
+    // Dashboard Page
+    currentLevel: 'موجودہ درجہ',
+    currentStreak: 'موجودہ تسلسل',
+    quizzesPassed: 'پاس شدہ کوئز',
+    pointsEarned: 'حاصل کردہ پوائنٹس',
+    weeklyLearningOverview: 'ہفتہ وار تعلیمی جائزہ',
+    weeklyLearningDescription: 'گزشتہ 7 دنوں میں آپ کے مطالعے کے منٹس۔',
+    levelProgress: 'درجہ کی ترقی',
+    levelProgressDescription: 'مہارت کی طرف آپ کا سفر!',
+    loginStreak: 'لاگ ان کا تسلسل',
+    dailyChallenges: 'روزانہ کے چیلنجز',
+    dailyChallengesDescription: 'اضافی پوائنٹس حاصل کرنے کے لیے چیلنجز مکمل کریں۔',
+    challengeHistory: 'چیلنج کی سرگزشت',
+    challengeHistoryDescription: 'گزشتہ 7 دنوں میں آپ کی کارکردگی۔',
+    subjectPerformance: 'مضمون کے لحاظ سے کارکردگی',
+    subjectPerformanceDescription: 'مختلف مضامین میں آپ کے موجودہ اسکور۔',
+    quizAccuracyTrends: 'کوئز کی درستی کے رجحانات',
+    quizAccuracyTrendsDescription: 'گزشتہ 6 مہینوں میں آپ کی کوئز کی کارکردگی۔',
+    achievementProgress: 'کامیابیوں کی پیشرفت',
+    achievementProgressDescription: 'چیلنجز مکمل کرکے بیجز حاصل کریں۔',
+  },
+};
+
+export type Language = keyof typeof translations;
+export type TranslationKey = keyof (typeof translations)['en'];
