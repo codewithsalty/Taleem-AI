@@ -1,0 +1,22 @@
+
+{
+  "name": "Taleem AI",
+  "short_name": "TaleemAI",
+  "description": "A voice-first, RAG-powered, offline-capable educational platform for Pakistani students.",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#0f172a",
+  "background_color": "#0f172a",
+  "start_url": "/dashboard",
+  "display": "standalone"
+}

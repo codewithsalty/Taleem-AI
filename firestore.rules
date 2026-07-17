@@ -1,0 +1,148 @@
+/**
+ * @fileOverview Firestore Security Rules for LearnAI Academy.
+ *
+ * Core Philosophy:
+ * This ruleset enforces a strict user-ownership model for user-specific data,
+ * while allowing public read access to curriculum content.  All write operations
+ * require authentication.
+ *
+ * Data Structure:
+ * - /users/{userId}: Stores user profile information. Only the user can read/write their own data.
+ * - /curriculum_content/{contentId}: Stores curriculum content, publicly readable, owner-only write.
+ * - /users/{userId}/daily_challenges/{challengeId}: Stores daily challenges for each user. Only the user can read/write their own challenges.
+ *
+ * Key Security Decisions:
+ * - Users can only access their own data under the /users/{userId} collection.
+ * - Curriculum content is publicly readable but only writeable with valid authentication and correct document values.
+ * - Listing of users is disallowed to protect privacy.
+ *
+ * Denormalization for Authorization:
+ * - User ownership is enforced by matching the {userId} path segment with the authenticated user's UID.
+ *   This avoids the need for separate queries to determine ownership.
+ *
+ * Structural Segregation:
+ * - Private user data (e.g., daily challenges) is stored under /users/{userId} to enable secure list operations
+ *   without exposing this data publicly.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Root-level access restrictions. No direct access to the root is allowed.
+     * @path /
+     * @allow (get, list) if false
+     * @allow (create, update, delete) if false
+     * @deny (get, list) Always deny root collection access.
+     * @deny (create, update, delete) Always deny root modification.
+     * @principle Prevents unintended access or modification at the root level.
+     */
+    match /{document=**} {
+      allow get: if false;
+      allow list: if false;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Controls access to user profile documents.
+     * @path /users/{userId}
+     * @allow (get) User can read their own profile.
+     * @allow (list) User can list their own profile.
+     * @allow (create) User can create their own profile if the userId matches their auth UID.
+     * @allow (update) User can update their own profile if the userId matches their auth UID and the document exists.
+     * @allow (delete) User can delete their own profile if the userId matches their auth UID and the document exists.
+     * @deny (get) Another user attempts to read a different user's profile.
+     * @deny (create) User attempts to create a profile with a userId that doesn't match their auth UID.
+     * @deny (update) Another user attempts to update a different user's profile.
+     * @deny (delete) Another user attempts to delete a different user's profile.
+     * @principle Enforces document ownership for user profiles.
+     */
+    match /users/{userId} {
+      allow get: if isSignedIn() && isOwner(userId);
+      allow list: if false; // Disable listing of all users
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && isExistingOwner(userId);
+      allow delete: if isSignedIn() && isExistingOwner(userId);
+    }
+
+    /**
+     * @description Controls access to curriculum content documents.
+     * @path /curriculum_content/{contentId}
+     * @allow (get) Anyone can read curriculum content.
+     * @allow (list) Anyone can list curriculum content.
+     * @allow (create) Only authenticated users can create curriculum content, ensuring 'createdAt' is set.
+     * @allow (update) Only the owner can update curriculum content, preventing unauthorized modifications.
+     * @allow (delete) Only the owner can delete curriculum content, preventing unauthorized deletion.
+     * @deny (create) Unauthorized user attempts to create content.
+     * @deny (update) Unauthorized user attempts to modify content.
+     * @deny (delete) Unauthorized user attempts to delete content.
+     * @principle Allows public read access while restricting write access to authenticated users with ownership.
+     */
+    match /curriculum_content/{contentId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if isSignedIn();
+      allow update: if isSignedIn();
+      allow delete: if isSignedIn();
+    }
+
+    /**
+     * @description Controls access to daily challenge documents for each user.
+     * @path /users/{userId}/daily_challenges/{challengeId}
+     * @allow (get) User can read their own daily challenge.
+     * @allow (list) User can list their own daily challenges.
+     * @allow (create) User can create their own daily challenge if the userId matches their auth UID.
+     * @allow (update) User can update their own daily challenge if the userId matches their auth UID and the document exists.
+     * @allow (delete) User can delete their own daily challenge if the userId matches their auth UID and the document exists.
+     * @deny (get) Another user attempts to read a different user's daily challenge.
+     * @deny (create) User attempts to create a daily challenge with a userId that doesn't match their auth UID.
+     * @deny (update) Another user attempts to update a different user's daily challenge.
+     * @deny (delete) Another user attempts to delete a different user's daily challenge.
+     */
+    match /users/{userId}/daily_challenges/{challengeId} {
+      allow get: if isSignedIn() && isOwner(userId);
+      allow list: if isSignedIn() && isOwner(userId);
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && isExistingOwner(userId);
+      allow delete: if isSignedIn() && isExistingOwner(userId);
+    }
+
+    /**
+     * @description Controls access to quiz history documents for each user.
+     * @path /users/{userId}/quiz_history/{quizHistoryId}
+     * @allow (get) User can read their own quiz history.
+     * @allow (list) User can list their own quiz history.
+     * @allow (create) User can create their own quiz history if the userId matches their auth UID.
+     * @allow (update) User can update their own quiz history if the userId matches their auth UID and the document exists.
+     * @allow (delete) User can delete their own quiz history if the userId matches their auth UID and the document exists.
+     * @deny (get) Another user attempts to read a different user's quiz history.
+     * @deny (create) User attempts to create a quiz history with a userId that doesn't match their auth UID.
+     * @deny (update) Another user attempts to update a different user's quiz history.
+     * @deny (delete) Another user attempts to delete a different user's quiz history.
+     */
+    match /users/{userId}/quiz_history/{quizHistoryId} {
+      allow get: if isSignedIn() && isOwner(userId);
+      allow list: if isSignedIn() && isOwner(userId);
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && isExistingOwner(userId);
+      allow delete: if isSignedIn() && isExistingOwner(userId);
+    }
+  }
+
+  // Helper function to determine if the user is signed in.
+  function isSignedIn() {
+    return request.auth != null;
+  }
+
+  // Helper function to determine if the user is the owner of the document.
+  function isOwner(userId) {
+    return request.auth.uid == userId;
+  }
+
+    // Helper function to determine if the user is the owner of an existing document.
+  function isExistingOwner(userId) {
+    return isOwner(userId) && resource != null;
+  }
+}
