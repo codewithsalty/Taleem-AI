@@ -235,9 +235,15 @@ export async function generateTutorContextAction(
     }
 
     try {
-        const embeddings = await Promise.all(
-          chunks.map(chunk => generateEmbedding({ text: chunk }))
-        );
+        const batchSize = 5;
+        const embeddings: Awaited<ReturnType<typeof generateEmbedding>>[] = [];
+        for (let i = 0; i < chunks.length; i += batchSize) {
+          const batch = chunks.slice(i, i + batchSize);
+          const batchResults = await Promise.all(
+            batch.map(chunk => generateEmbedding({ text: chunk }))
+          );
+          embeddings.push(...batchResults);
+        }
 
         try {
           const admin = (await import('@/server/firebase/server-init')).initializeFirebaseServer();
