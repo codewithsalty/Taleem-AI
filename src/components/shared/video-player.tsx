@@ -142,6 +142,8 @@ export default function VideoPlayer() {
       >
         <div ref={playerDivRef} className="absolute inset-0" />
 
+        <div className="absolute bottom-0 right-0 w-32 h-12 z-20" />
+
         <div className="absolute inset-0 z-10 flex flex-col justify-between p-4">
           <div className="flex-1 cursor-pointer" onClick={togglePlay} />
 
