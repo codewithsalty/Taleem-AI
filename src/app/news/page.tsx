@@ -14,20 +14,20 @@ import Footer from '@/components/shared/footer';
 const teamMembers = [
     {
         name: "Salman Khan",
-        role: "Aspiring AI Engineer & Full Stack Python Developer",
+        role: "Full Stack AI Engineer | Certified Ethical Hacker",
         avatar: "https://i.postimg.cc/TYWcbYbc/salman.jpg",
-        description: "A passionate innovator focused on building intelligent systems using LLMs, RAG, MCPs, and AI agents. Certified Ethical Hacker with a deep interest in the intersection of AI, automation, and security.",
+        description: "Specializing in intelligent systems development using LLMs, RAG pipelines, MCPs, and autonomous AI agents. Deep expertise in AI-driven application architecture and cybersecurity.",
         socials: {
-            github: "https://github.com/S4lmankhan",
+            github: "https://github.com/codewithsalty",
             linkedin: "https://www.linkedin.com/in/s4lmankhan/",
             twitter: "https://x.com/codewithsalty",
         }
     },
     {
         name: "Hina Tanveer",
-        role: "Aspiring AI, ML & Automation Engineer | Data Analyst | Graphic Designer",
+        role: "AI & ML Engineer | Data Analyst",
         avatar: "https://i.postimg.cc/6pP2fdNT/dae9e46a-23a8-42b4-91fa-effb14a2b906-copied-media-2.jpg",
-        description: "A creative problem-solver blending data-driven insights with design thinking. Skilled in machine learning, automation, and data analytics, with an eye for creating intelligent and visually appealing solutions.",
+        description: "Building intelligent data-driven systems with expertise in machine learning, automation, and data analytics. Creating visually compelling and insight-rich AI solutions.",
         socials: {
             github: "https://github.com/HinaTanveer813",
             linkedin: "https://www.linkedin.com/in/hinatanveer3810/",
@@ -36,9 +36,9 @@ const teamMembers = [
     },
     {
         name: "Usama Shahid",
-        role: "AI Enthusiast | Deep Learning, NLP & Computer Vision Developer",
+        role: "AI Engineer | Deep Learning & NLP Specialist",
         avatar: "https://i.postimg.cc/9fSd06MX/Whats-App-Image-2025-07-18-at-18-48-12-b406fa92.jpg",
-        description: "An AI enthusiast passionate about creating real-world solutions through deep learning, natural language processing, and computer vision turning ideas into intelligent systems that make a difference.",
+        description: "Developing production-grade AI systems in deep learning, natural language processing, and computer vision. Transforming complex problems into scalable intelligent solutions.",
         socials: {
             github: "https://github.com/fewgets",
             linkedin: "https://www.linkedin.com/in/-usamashahid/",
@@ -99,7 +99,7 @@ export default function TeamPage() {
                             <span className="highlight-gradient"> Team</span>
                         </h1>
                         <p className="text-lg md:text-xl text-foreground/80 max-w-3xl mx-auto">
-                            The passionate student developers from NUML behind Taleem AI, built with dedication (and lots of coffee) for the Google & Inovista Hackathon.
+                            The team behind Taleem AI — engineers, developers, and AI specialists building the future of education through intelligent systems.
                         </p>
                         </motion.div>
                     </div>
