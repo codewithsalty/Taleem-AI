@@ -240,7 +240,7 @@ export async function generateTutorContextAction(
         );
 
         try {
-          const admin = (await import('@/firebase/server-init')).initializeFirebaseServer();
+          const admin = (await import('@/server/firebase/server-init')).initializeFirebaseServer();
           const db = admin.firestore();
           const docsCol = db.collection('curriculum_documents');
 
@@ -466,7 +466,7 @@ import { dailyChallengeDefs } from '@/lib/gamification';
 
 export async function ensureDailyChallenges(userId: string) {
     try {
-      const admin = (await import('@/firebase/server-init')).initializeFirebaseServer();
+      const admin = (await import('@/server/firebase/server-init')).initializeFirebaseServer();
       const db = admin.firestore();
       const challengesRef = db.collection('users').doc(userId).collection('daily_challenges');
 
