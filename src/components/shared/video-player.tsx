@@ -1,54 +1,138 @@
-
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { Play, AlertCircle } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
 
-const videoUrls = {
-  en: {
-    src: 'https://drive.google.com/uc?export=download&id=1eTnY4DXDgkiTBLfgS9mmHkihPfybzgb_&confirm=t',
-    poster: '',
-  },
-  ur: {
-    src: 'https://drive.google.com/uc?export=download&id=1RgVefW0W1hy5N-vbD_TqZJBJnKvIfcA0&confirm=t',
-    poster: '',
-  },
+const videoIds = {
+  en: 'F7m0gW9uwBo',
+  ur: 'oSoZLgFil2U',
 };
 
 type Language = 'en' | 'ur';
 
+declare global {
+  interface Window {
+    YT: {
+      Player: new (elementId: string, config: Record<string, unknown>) => YouTubePlayer;
+      PlayerState: { PLAYING: number; PAUSED: number };
+      ready: (callback: () => void) => void;
+    };
+    onYouTubeIframeAPIReady: () => void;
+  }
+}
+
+interface YouTubePlayer {
+  playVideo: () => void;
+  pauseVideo: () => void;
+  mute: () => void;
+  unMute: () => void;
+  isMuted: () => boolean;
+  setVolume: (vol: number) => void;
+  getVolume: () => number;
+  destroy: () => void;
+}
+
 export default function VideoPlayer() {
   const [selectedLang, setSelectedLang] = useState<Language>('en');
   const [isPlaying, setIsPlaying] = useState(false);
-  const [hasError, setHasError] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const [volume, setVolume] = useState(30);
+  const [apiReady, setApiReady] = useState(false);
+  const playerRef = useRef<YouTubePlayer | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const handlePlay = useCallback(() => {
-    if (videoRef.current) {
-      videoRef.current.play()
-        .then(() => setIsPlaying(true))
-        .catch(() => setHasError(true));
+  useEffect(() => {
+    if (window.YT && window.YT.Player) {
+      setApiReady(true);
+      return;
     }
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    const first = document.getElementsByTagName('script')[0];
+    first.parentNode?.insertBefore(tag, first);
+    window.onYouTubeIframeAPIReady = () => setApiReady(true);
   }, []);
 
-  const handleError = useCallback(() => {
-    setHasError(true);
+  useEffect(() => {
+    if (!apiReady) return;
+    if (playerRef.current) {
+      playerRef.current.destroy();
+      playerRef.current = null;
+    }
     setIsPlaying(false);
+    const id = videoIds[selectedLang];
+    const timer = setTimeout(() => {
+      if (!containerRef.current) return;
+      const div = document.createElement('div');
+      div.id = 'youtube-player';
+      containerRef.current.innerHTML = '';
+      containerRef.current.appendChild(div);
+      playerRef.current = new window.YT.Player('youtube-player', {
+        videoId: id,
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          controls: 0,
+          modestbranding: 1,
+          rel: 0,
+          playsinline: 1,
+          loop: 1,
+          playlist: id,
+          enablejsapi: 1,
+        },
+        events: {
+          onReady: (e: { target: YouTubePlayer }) => {
+            e.target.setVolume(volume);
+            setIsPlaying(true);
+            setIsMuted(true);
+          },
+          onStateChange: (e: { data: number }) => {
+            if (e.data === window.YT.PlayerState.PLAYING) setIsPlaying(true);
+            if (e.data === window.YT.PlayerState.PAUSED) setIsPlaying(false);
+          },
+        },
+      });
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [apiReady, selectedLang]);
+
+  const togglePlay = useCallback(() => {
+    if (!playerRef.current) return;
+    if (isPlaying) {
+      playerRef.current.pauseVideo();
+    } else {
+      playerRef.current.playVideo();
+    }
+  }, [isPlaying]);
+
+  const toggleMute = useCallback(() => {
+    if (!playerRef.current) return;
+    if (playerRef.current.isMuted()) {
+      playerRef.current.unMute();
+      playerRef.current.setVolume(volume);
+      setIsMuted(false);
+    } else {
+      playerRef.current.mute();
+      setIsMuted(true);
+    }
+  }, [volume]);
+
+  const handleVolumeChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = parseInt(e.target.value);
+    setVolume(val);
+    if (playerRef.current) {
+      playerRef.current.unMute();
+      playerRef.current.setVolume(val);
+      setIsMuted(false);
+    }
   }, []);
 
   const handleLangSwitch = useCallback((lang: Language) => {
     setSelectedLang(lang);
-    setIsPlaying(false);
-    setHasError(false);
-    if (videoRef.current) {
-      videoRef.current.pause();
-    }
   }, []);
-
-  const currentVideo = videoUrls[selectedLang];
 
   return (
     <div className="w-full max-w-5xl mx-auto">
@@ -59,72 +143,62 @@ export default function VideoPlayer() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}
       >
-        {/* Video Element */}
-        <video
-          ref={videoRef}
-          src={currentVideo.src}
-          playsInline
-          loop
-          controls={isPlaying}
-          preload="none"
-          className="w-full h-full object-cover"
-          onError={handleError}
-          onEnded={() => setIsPlaying(false)}
-        />
+        <div ref={containerRef} className="w-full h-full relative pointer-events-none">
+          <div className="w-full h-full [&_iframe]:pointer-events-none" />
+        </div>
 
-        {/* Click-to-play overlay — visible when not playing and no error */}
-        <AnimatePresence>
-          {!isPlaying && !hasError && (
-            <motion.div
-              key="overlay"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer"
-              onClick={handlePlay}
-            >
-              {currentVideo.poster && (
-                <img
-                  src={currentVideo.poster}
-                  alt="Video thumbnail"
-                  className="absolute inset-0 w-full h-full object-cover"
-                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/20" />
+        <div className="absolute inset-0 z-10 flex flex-col justify-between p-4">
+          <div className="flex-1" onClick={togglePlay} />
 
-              {/* Play button */}
+          <AnimatePresence>
+            {!isPlaying && (
               <motion.div
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                className="relative z-10 flex items-center justify-center w-20 h-20 rounded-full bg-white/20 backdrop-blur-md border-2 border-white/40 shadow-2xl"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 flex items-center justify-center pointer-events-none"
               >
-                <Play className="w-9 h-9 text-white fill-white ml-1" />
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  className="flex items-center justify-center w-20 h-20 rounded-full bg-white/20 backdrop-blur-md border-2 border-white/40 shadow-2xl pointer-events-auto cursor-pointer"
+                  onClick={togglePlay}
+                >
+                  <Play className="w-9 h-9 text-white fill-white ml-1" />
+                </motion.div>
               </motion.div>
+            )}
+          </AnimatePresence>
 
-              <p className="relative z-10 mt-4 text-white/80 text-sm font-medium">
-                Click to play demo
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
+          <div className="flex items-center gap-3 pointer-events-auto">
+            <button
+              onClick={togglePlay}
+              className="text-white/80 hover:text-white transition-colors"
+              aria-label={isPlaying ? 'Pause' : 'Play'}
+            >
+              {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+            </button>
 
-        {/* Error state */}
-        {hasError && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-card/90 gap-4">
-            <AlertCircle className="w-12 h-12 text-muted-foreground" />
-            <div className="text-center px-4">
-              <p className="font-semibold text-foreground">Video unavailable</p>
-              <p className="text-sm text-muted-foreground mt-1">
-                The demo video could not be loaded. Please check back later.
-              </p>
-            </div>
+            <button
+              onClick={toggleMute}
+              className="text-white/80 hover:text-white transition-colors"
+              aria-label={isMuted ? 'Unmute' : 'Mute'}
+            >
+              {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+            </button>
+
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={volume}
+              onChange={handleVolumeChange}
+              className="w-24 h-1 accent-white cursor-pointer"
+              aria-label="Volume"
+            />
           </div>
-        )}
+        </div>
       </motion.div>
 
-      {/* Language toggle */}
       <div className="flex justify-center gap-4 mt-6">
         <Button
           onClick={() => handleLangSwitch('en')}
