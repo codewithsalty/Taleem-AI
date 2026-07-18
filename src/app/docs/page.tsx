@@ -1,11 +1,10 @@
-
 'use client';
 
 import { motion } from 'framer-motion';
-import { Award, BookOpen, BrainCircuit, Database, Gamepad2, Mic, Presentation, Sparkles, Youtube, Hash, Code, Rocket, Heart } from 'lucide-react';
+import { Award, BookOpen, BrainCircuit, Database, Gamepad2, Mic, Presentation, Sparkles, Youtube, Hash, Code, Rocket, Shield, Globe, Layers, Zap } from 'lucide-react';
 import Footer from '@/components/shared/footer';
 import PublicHeader from '@/components/shared/public-header';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 
 const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) => (
@@ -21,7 +20,6 @@ const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode, titl
         </CardContent>
     </Card>
 );
-
 
 export default function DocsPage() {
     return (
@@ -46,11 +44,9 @@ export default function DocsPage() {
                 <Separator className="my-12" />
 
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
-                    {/* Sticky Sidebar */}
                     <aside className="hidden lg:block lg:col-span-1 sticky top-32 h-fit">
                         <nav className="flex flex-col gap-2">
                              <a href="#introduction" className="font-semibold text-primary">Introduction</a>
-                             <a href="#our-story" className="font-semibold text-primary">Our Story & Tech</a>
                              <a href="#core-features" className="font-semibold text-primary pl-2">Core Features</a>
                              <a href="#key-innovations" className="font-semibold text-primary pl-2">Key Innovations</a>
                              <ul className="flex flex-col gap-1 pl-6 text-sm text-muted-foreground">
@@ -60,7 +56,6 @@ export default function DocsPage() {
                         </nav>
                     </aside>
 
-                    {/* Main Content */}
                     <div className="lg:col-span-3 prose prose-lg dark:prose-invert max-w-none">
                         
                         <section id="introduction">
@@ -70,30 +65,6 @@ export default function DocsPage() {
                             </p>
                             <p>
                                 We are not just another learning app; we are a personal AI tutor designed to be deeply relevant to the Pakistani student. Our platform transforms static study material into a dynamic, interactive, and personalized experience. We call it: <strong className="text-primary">"Learn Smarter, Speak Freely."</strong>
-                            </p>
-                        </section>
-
-                        <Separator className="my-12" />
-
-                         <section id="our-story">
-                            <h2 className="text-4xl font-headline font-bold flex items-center gap-3"><Heart /> Our Story & Technology</h2>
-                             <p>
-                                Taleem AI is more than just code; it's a testament to passion and determination. Our journey in building this platform was fueled by a singular goal that went beyond just winning the hackathon: to become an active part of the Google Developer Group (GDG) Cloud community. 
-                            </p>
-                             <blockquote>
-                                We are students from NUML, and for the past three years, we've actively sought out Google and Cloud events at other universities like Bahria, FAST, and Air University, because our own university's GDG chapter has been dormant. Our participation in this hackathon is our way of knocking on the community's door, showcasing our skills and our eagerness to contribute.
-                            </blockquote>
-                            <h3 className="text-3xl font-headline flex items-center gap-3 mt-8"><Code /> Built Entirely in Firebase Studio</h3>
-                             <p>
-                                This entire, full-stack application, from the database to the AI models to the frontend, was built exclusively within <strong className="text-primary">Google Firebase Studio</strong>. We did not use any external AI coding assistants like Vercel v0, Cursory, or GitHub Copilot. Our process was a direct collaboration between our team's vision and the powerful, integrated capabilities of Firebase Studio.
-                            </p>
-                            <ul>
-                                <li><strong>Rapid Scaffolding:</strong> Authentication, Firestore, and the entire Next.js framework were set up in minutes.</li>
-                                <li><strong>Conversational Development:</strong> We generated entire React components, server actions, and complex AI flows by describing our needs to the Studio's AI.</li>
-                                <li><strong>Unified Environment:</strong> This allowed us to build a large-scale, fully functional, and innovative application at a speed that would be unimaginable with traditional tools.</li>
-                            </ul>
-                            <p>
-                                Taleem AI is our proof-of-concept, demonstrating not only a powerful new tool for education but also what a dedicated team can achieve with the right platform.
                             </p>
                         </section>
 

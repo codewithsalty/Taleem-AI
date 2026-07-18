@@ -1,35 +1,48 @@
-
-import { Github, Twitter, Linkedin } from 'lucide-react';
+import { Github, Twitter, Linkedin, Globe, Mail, Shield } from 'lucide-react';
 import Logo from './logo';
 import Link from 'next/link';
 
 export default function Footer() {
   return (
     <footer className="border-t">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-4 md:mb-0 text-center md:text-left">
+      <div className="container mx-auto px-4 py-12">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="text-center md:text-left">
             <Link href="/" className="flex justify-center md:justify-start items-center gap-4">
                 <Logo />
             </Link>
-            <p className="mt-2 text-sm text-muted-foreground">© {new Date().getFullYear()} Taleem AI. All rights reserved.</p>
+            <p className="mt-3 text-sm text-muted-foreground max-w-md">
+              AI Engineer | Full Stack Python Developer | Certified Ethical Hacker — Developing Intelligent Systems with LLMs, MCPs, RAG & AI Agents.
+            </p>
           </div>
-           <div className="flex items-center gap-4">
-             <Link href="/parent/login" className="text-sm font-medium text-muted-foreground hover:text-foreground">
-              Parent Portal
-            </Link>
-            <div className="flex space-x-4">
-              <Link href="https://x.com/codewithsalty" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">
-                <Twitter size={20} />
+           <div className="flex flex-col items-center md:items-end gap-3">
+             <div className="flex items-center gap-4">
+               <Link href="/parent/login" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                Parent Portal
               </Link>
-              <Link href="https://github.com/S4lmankhan" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">
-                <Github size={20} />
+              <Link href="/about" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                About
               </Link>
-              <Link href="https://www.linkedin.com/in/s4lmankhan/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">
-                <Linkedin size={20} />
+              <Link href="/docs" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                Docs
               </Link>
             </div>
-          </div>
+            <div className="flex space-x-4">
+              <Link href="https://x.com/codewithsalty" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" title="Twitter / X">
+                <Twitter size={20} />
+              </Link>
+              <Link href="https://github.com/S4lmankhan" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" title="GitHub">
+                <Github size={20} />
+              </Link>
+              <Link href="https://www.linkedin.com/in/s4lmankhan/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" title="LinkedIn">
+                <Linkedin size={20} />
+              </Link>
+              <Link href="mailto:codewithsalty@gmail.com" className="text-muted-foreground hover:text-foreground transition-colors" title="Email">
+                <Mail size={20} />
+              </Link>
+            </div>
+            <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} Taleem AI. All rights reserved.</p>
+           </div>
         </div>
       </div>
     </footer>
