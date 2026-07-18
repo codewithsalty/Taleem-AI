@@ -83,6 +83,7 @@ export default function VideoPlayer() {
           loop: 1,
           playlist: id,
           enablejsapi: 1,
+          iv_load_policy: 3,
         },
         events: {
           onReady: (e: { target: YouTubePlayer }) => {
@@ -142,22 +143,20 @@ export default function VideoPlayer() {
       >
         <div ref={playerDivRef} className="absolute inset-0" />
 
-        <div className="absolute bottom-0 right-0 w-32 h-12 z-20" />
+        <div className="absolute inset-0 z-10" />
 
-        <div className="absolute inset-0 z-10 flex flex-col justify-between p-4">
-          <div className="flex-1 cursor-pointer" onClick={togglePlay} />
-
-          {!isPlaying && (
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div
-                className="flex items-center justify-center w-20 h-20 rounded-full bg-white/20 backdrop-blur-md border-2 border-white/40 shadow-2xl pointer-events-auto cursor-pointer"
-                onClick={togglePlay}
-              >
-                <Play className="w-9 h-9 text-white fill-white ml-1" />
-              </div>
+        {!isPlaying && (
+          <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+            <div
+              className="flex items-center justify-center w-20 h-20 rounded-full bg-white/20 backdrop-blur-md border-2 border-white/40 shadow-2xl pointer-events-auto cursor-pointer"
+              onClick={togglePlay}
+            >
+              <Play className="w-9 h-9 text-white fill-white ml-1" />
             </div>
-          )}
+          </div>
+        )}
 
+        <div className="absolute bottom-0 left-0 right-0 z-20 p-4">
           <div className="flex items-center gap-3">
             <button
               onClick={togglePlay}

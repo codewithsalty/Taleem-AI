@@ -400,14 +400,56 @@ taleem-ai/
 
 ---
 
+### Phase 5: YouTube Videos & Deployment Fixes (05:40 — ~06:30 AM)
+
+**Commits**: `364c8a1`, `393481e`, `7072682`, `d82ad90`, `03bf979` — "Final Commit"
+
+#### 5.1 Fixed Vercel Build Error
+**Problem**: `src/server/actions.ts` imported `@/firebase/server-init` (old path after restructuring).
+**Fix**: Changed both dynamic imports to `@/server/firebase/server-init`.
+
+#### 5.2 Fixed Firebase Project Mismatch
+- The original code had `taleem-ai-b1ffb` Firebase project config
+- User's actual Firebase project is `studio-6147701984-fafcf`
+- Updated `.env` and Vercel env vars with correct values:
+  - `authDomain`: `studio-6147701984-fafcf.firebaseapp.com`
+  - `projectId`: `studio-6147701984-fafcf`
+  - `storageBucket`: `studio-6147701984-fafcf.firebasestorage.app`
+  - `messagingSenderId`: `800607232549`
+  - `appId`: `1:800607232549:web:f4e9fdb668a298c38555cc`
+- API key (`AIzaSyCj-urFfYXHJRNQfxsNbK4hD23-aT3JWCA`) was the same for both projects
+
+#### 5.3 Google Sign-in Fix
+**Problem**: `redirect_uri_mismatch` on Google sign-in
+**Fix**: Added `https://taleem-ai.vercel.app` to Firebase Auth authorized domains AND Google Cloud OAuth authorized redirect URIs (`https://taleem-ai.vercel.app/__/auth/handler`)
+
+#### 5.4 Video Player Rewrite
+**Before**: Used Google Drive direct download URLs (`drive.google.com/uc?export=download&id=...`) which don't stream reliably in HTML5 `<video>` tags.
+**After**: Replaced with YouTube IFrame API:
+- English: `F7m0gW9uwBo`
+- Urdu: `oSoZLgFil2U`
+- **Autoplays muted** on page load
+- **No YouTube logo** — `controls=0`, `modestbranding=1`, and overlay div covering bottom-right watermark area
+- **No click-through to YouTube** — iframe interaction blocked, custom controls handle everything
+- Custom controls: play/pause, mute/unmute, volume slider
+- Language toggle preserved
+
+#### 5.5 Firestore Document Upload Fix
+**Problem**: Uploading documents for RAG gave "Failed to index document in knowledge base".
+**Root cause**: Embedding generation called Groq API for ALL chunks in parallel (`Promise.all`), hitting rate limits.
+**Fix**: Batched embedding calls to 5 at a time.
+**Also**: Fixed `server-init.ts` to use `admin.apps.length > 0` instead of flawed `initialized` boolean flag, and only set state after successful init.
+
+#### 5.6 Removed Turbopack
+Removed `--turbopack` from `package.json` dev script — was causing "unexpected error" at runtime. Now uses plain Webpack.
+
+---
+
 ## Remaining Issues
 
 | # | Issue | Severity | Fix |
 |---|-------|----------|-----|
-| 1 | Google Drive videos won't stream | Medium | Upload to YouTube unlisted or Firebase Storage, update URLs in `video-player.tsx` |
-| 2 | `/logo.png` 404 | Low | Not in source code — likely browser extension. Create a placeholder or ignore |
-| 3 | `/icon-192x192.png` + `/icon-512x512.png` 404 | Low | Add real icon PNGs to `public/` matching `manifest.json` |
-| 4 | `redirect_uri_mismatch` on Google sign-in | High | Add domain to Firebase Auth → Settings → Authorized domains |
-| 5 | `GOOGLE_GENAI_API_KEY` not set | Low | Get free key from https://aistudio.google.com/apikey |
-| 6 | Service account on wrong project | Medium | Generate key from `taleem-ai-b1ffb` (not `studio-6147701984-fafcf`) for Admin SDK |
-| 7 | Turbopack still in `package.json` dev script | Low | Remove `--turbopack` flag to avoid conflicts with Webpack config |
+| 1 | `/logo.png` 404 | Low | Likely browser extension probing. Ignore or create placeholder |
+| 2 | `/icon-192x192.png` + `/icon-512x512.png` 404 | Low | Add real icon PNGs to `public/` matching `manifest.json` |
+| 3 | `GOOGLE_GENAI_API_KEY` not set | Low | Get free key from https://aistudio.google.com/apikey |
+| 4 | Document upload error logging | Low | User should check Vercel Function Logs if upload still fails |
