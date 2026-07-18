@@ -9,11 +9,11 @@ import { Play, AlertCircle } from 'lucide-react';
 
 const videoUrls = {
   en: {
-    src: 'https://drive.usercontent.google.com/download?id=1eTnY4DXDgkiTBLfgS9mmHkihPfybzgb_&export=download&confirm=t',
+    src: 'https://drive.google.com/uc?export=download&id=1eTnY4DXDgkiTBLfgS9mmHkihPfybzgb_&confirm=t',
     poster: '',
   },
   ur: {
-    src: 'https://drive.usercontent.google.com/download?id=1RgVefW0W1hy5N-vbD_TqZJBJnKvIfcA0&export=download&confirm=t',
+    src: 'https://drive.google.com/uc?export=download&id=1RgVefW0W1hy5N-vbD_TqZJBJnKvIfcA0&confirm=t',
     poster: '',
   },
 };
@@ -84,13 +84,14 @@ export default function VideoPlayer() {
               className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer"
               onClick={handlePlay}
             >
-              {/* Poster image as background */}
-              <img
-                src={currentVideo.poster}
-                alt="Video thumbnail"
-                className="absolute inset-0 w-full h-full object-cover"
-                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-              />
+              {currentVideo.poster && (
+                <img
+                  src={currentVideo.poster}
+                  alt="Video thumbnail"
+                  className="absolute inset-0 w-full h-full object-cover"
+                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                />
+              )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/20" />
 
               {/* Play button */}
