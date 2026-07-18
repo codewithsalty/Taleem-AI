@@ -1,4 +1,4 @@
-import { Github, Twitter, Linkedin, Globe, Mail, Shield } from 'lucide-react';
+import { Github, Twitter, Linkedin, Mail } from 'lucide-react';
 import Logo from './logo';
 import Link from 'next/link';
 
@@ -12,7 +12,7 @@ export default function Footer() {
                 <Logo />
             </Link>
             <p className="mt-3 text-sm text-muted-foreground max-w-md">
-              AI Engineer | Full Stack Python Developer | Certified Ethical Hacker — Developing Intelligent Systems with LLMs, MCPs, RAG & AI Agents.
+              A voice-first, RAG-powered educational platform for Pakistani students. Learn Smarter, Speak Freely.
             </p>
           </div>
            <div className="flex flex-col items-center md:items-end gap-3">
@@ -28,10 +28,10 @@ export default function Footer() {
               </Link>
             </div>
             <div className="flex space-x-4">
-              <Link href="https://x.com/codewithsalty" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" title="Twitter / X">
+              <Link href="https://x.com/codewithsalty" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" title="X">
                 <Twitter size={20} />
               </Link>
-              <Link href="https://github.com/S4lmankhan" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" title="GitHub">
+              <Link href="https://github.com/codewithsalty" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" title="GitHub">
                 <Github size={20} />
               </Link>
               <Link href="https://www.linkedin.com/in/s4lmankhan/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" title="LinkedIn">
